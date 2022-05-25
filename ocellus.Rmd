@@ -1,0 +1,44 @@
+---
+title: "lab 6"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+install.packages("multcomp")
+library(multcomp)
+library(tidyverse)
+install.packages("agricolae")
+library(agricolae)
+hand_washing <- read_csv("~/Desktop/Biometry/Lab_2/Lab 6 Data-20220504/hand_washing.csv") %>% # this means "ann then"
+  mutate(method2 = as.factor(washing_method))
+View(hand_washing)
+#null hypothesis: all means are equal to each other 
+#alternative hypothesis: at least one of the means are not equal 
+
+```
+
+```{r}
+unique(hand_washing$washing_method) #use unique to look at the levels within our variable of interest (aka factor) or 
+# %%
+```
+
+```{r}
+hand_washing$washing_method_1 <- as.factor(hand_washing$washing_method) 
+with(hand_washing, hist(bac_colonies[washing_method == "ab_soap"]))
+```
+```{r}
+wash1 <- aov(bac_colonies ~ washing_method, data = hand_washing)
+plot(wash1)
+res<-wash1$residuals
+shapiro.test(res)
+leveneTest(bac_colonies~washing_method, hand_washing)
+summary(wash1)
+#Turkeykramer
+TukeyHSD(wash1)
+
+
+power.t.test(delta = 3, sd = 2.5, sig.level=0.05, power =0.8, type = "two.sample", alternative = "two.sided")
+
+```
+

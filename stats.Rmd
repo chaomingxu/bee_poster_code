@@ -1,0 +1,51 @@
+---
+title: "Statistical test"
+output: html_document
+---
+```{r}
+male <- measurement[measurement$Sex == "Male",]
+female <- measurement[measurement$Sex == "Female",]
+hist(male$MOW.to.ITS.Ratio)
+hist(female$MOW.to.ITS.Ratio)
+male_log10 <- log10(male$MOW.to.ITS.Ratio)
+female_log10 <- log10(max(female$MOW.to.ITS.Ratio+1) - female$MOW.to.ITS.Ratio)
+hist(male_log10)
+hist(female_log10)
+shapiro.test(female_log10)
+
+qqPlot(female_log10)
+```{r}
+#levene test 
+library(car)
+leveneTest(Apis$MOW.to.ITS.Ratio, Apis$Sex)
+leveneTest(Augo$MOW.to.ITS.Ratio, Augo$Sex)
+leveneTest(Bombm$MOW.to.ITS.Ratio, Bombm$Sex)
+leveneTest(Bombv$MOW.to.ITS.Ratio, Bombv$Sex)
+leveneTest(lasio$MOW.to.ITS.Ratio, lasio$Sex)
+```
+```{r}
+#two sample t-test
+
+t.test(Apis_male_Ratio$MOW.to.ITS.Ratio, Apis_female_Ratio$MOW.to.ITS.Ratio, var.equal = TRUE)
+t.test(Augo_male_Ratio$MOW.to.ITS.Ratio, Augo_female_Ratio$MOW.to.ITS.Ratio, var.equal = TRUE)
+t.test(Agap_male_Ratio$MOW.to.ITS.Ratio, Agap_female_Ratio$MOW.to.ITS.Ratio, var.equal = TRUE)
+t.test(Bombusm_male_Ratio$MOW.to.ITS.Ratio, Bombusm_female_Ratio$MOW.to.ITS.Ratio, var.equal = TRUE)
+t.test(Bombusv_male_Ratio$MOW.to.ITS.Ratio, Bombusv_female_Ratio$MOW.to.ITS.Ratio, var.equal = TRUE)
+
+t.test(Lasio_male_Ratio$MOW.to.ITS.Ratio, Lasio_female_Ratio$MOW.to.ITS.Ratio, var.equal = TRUE)
+
+t.test(Xylo_male_Ratio$MOW.to.ITS.Ratio, Xylo_female_Ratio$MOW.to.ITS.Ratio, var.equal = TRUE)
+```
+#facet_wrap(~ sex) used to subset data in geom ()
+
+
+# residuals
+# testing normality using residuals
+```{r}
+fit <- lm(measurement~Sex, data = measurement)
+res <- fit$residuals 
+
+citation("ggplot2")
+citation("car")
+```
+

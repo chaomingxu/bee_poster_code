@@ -1,0 +1,107 @@
+---
+title: "GGPLOT"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+Measurements_Sheet1 <- read_csv("~/Desktop/Measurements - Sheet1.csv")
+measurement <- Measurements_Sheet1[Measurements_Sheet1$Sex != 'Queen', ]
+```
+
+```{r}
+Social_bee <- measurement[measurement$scientificName != "Xylocopa varipuncta",]
+solitarymale_Ratio <- Social_bee[Social_bee$Sex == "Male" & Social_bee$Sociality == "Solitary",]
+```
+
+#boxplots for each species 
+```{r}
+Apis <- measurement[measurement$scientificName == "Apis mellifera",]
+ggplot(data = Apis, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex )) +
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocellar Width to Intertegula Span", title = expression(paste( italic("A.mellifera "), "MOW:ITS Between Males and Females"))) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+```{r}
+Agap <- measurement[measurement$scientificName == "Agapostemon texanus",]
+ggplot(data = Agap, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex )) +
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocellar Width to Intertegula Span", title = expression(paste( italic("A.texanus "), "MOW:ITS Between Males and Females"))) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+Augo <- measurement[measurement$scientificName == "Augochlorella pomoniella",]
+ggplot(data = Augo, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex )) +
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocellar Width to Intertegula Span", title = expression(paste( italic("A.pomoniella "), "MOW:ITS Between Males and Females"))) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+Bombm <- measurement[measurement$scientificName == "Bombus melanopygus",]
+ggplot(data = Bombm, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex )) +
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocellar Width to Intertegula Span", title = expression(paste( italic("B.melanopygus "), "MOW:ITS Between Males and Females"))) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+Bombv <- measurement[measurement$scientificName == "Bombus vosnesenskii",]
+ggplot(data = Bombv, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex )) +
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocellar Width to Intertegula Span", title = expression(paste( italic("B.vosnesenskii "), "MOW:ITS Between Males and Females"))) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+lasio <- measurement[measurement$scientificName == "Lasioglossum incompletum",]
+ggplot(data = lasio, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex )) +
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocellar Width to Intertegula Span", title = expression(paste( italic("L.incompletum "), "MOW:ITS Between Males and Females"))) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+xylo <- measurement[measurement$scientificName == "Xylocopa varipuncta",]
+ggplot(data = xylo, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex )) +
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocellar Width to Intertegula Span", title = expression(paste( italic("X.varipuncta "), "MOW:ITS Between Males and Females"))) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+#ggplot males vs females in general
+```{r}
+male <- measurement[measurement$Sex == "Male",]
+female <- measurement[measurement$Sex == "Female",]
+ggplot(data = measurement, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex)) + 
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocellar Width to Intertegula Span", title = "MOW:ITS between Males and Females of All Species") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+Social <- Social_bee[Social_bee$Sociality == "Social",]
+Solitary <- Social_bee[Social_bee$Sociality == "Solitary",]
+Socialmale <- Social_bee[Social_bee$Sex == "Male" & Social_bee$Sociality == "Social",]
+Socialfemale <- Social_bee[Social_bee$Sex == "Female"& Social_bee$Sociality == "Social",]
+Solitmale <- Social_bee[Social_bee$Sociality == "Solitary"& Social_bee$Sex == "Male",]
+solitfemale <- Social_bee[Social_bee$Sociality == "Solitary"& Social_bee$Sex == "Female",]
+ggplot(data = Solitary, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex)) + 
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocelli Width to Intertegula Span", title = "Solitary Bees MOW:ITS between Males and Females") +
+  theme(plot.title = element_text(hjust = 0.5))
+ggplot(data = Social, aes(x = Sex, y = MOW.to.ITS.Ratio, fill = Sex)) + 
+geom_boxplot() +
+  labs(x = "Sex", y = "Ratio of Medium Ocelli Width to Intertegula Span", title = "Social Bees MOW:ITS between Males and Females") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
